@@ -1,9 +1,9 @@
 import {Component} from 'angular2/core';
 import {RouteConfig, ROUTER_DIRECTIVES} from 'angular2/router';
 
-import {LoginComponent} from "./login.component";
-import {CadastroComponent} from "./cadastro.component";
-import {PlataformaComponent} from "./plataforma.component";
+import {LoginComponent} from './login/login.component';
+import {CadastroComponent} from './cadastro/cadastro.component';
+import {PlataformaComponent} from './plataforma/plataforma.component';
 
 @Component({
   selector: 'app',
@@ -22,9 +22,10 @@ import {PlataformaComponent} from "./plataforma.component";
     component: CadastroComponent
   },
   {
-    path: '/plataforma',
+    path: '/...',
     name: 'Plataforma',
-    component: PlataformaComponent
+    component: PlataformaComponent,
+    useAsDefault: true
   }
 ])
 export class AppComponent { }
