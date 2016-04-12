@@ -4,14 +4,7 @@ import {DashboardComponent} from './dashboard.component';
 import {CadastroOrgaoComponent} from './cadastro-orgao.component';
 
 @Component({
-  template: `
-    <h2>Plataforma</h2>
-    <nav>
-      <a [routerLink]="['Dashboard']">Dashboard</a>
-      <a [routerLink]="['CadastroOrgao']">Cadastro de Órgão</a>
-    </nav>
-    <router-outlet></router-outlet>
-  `,
+  templateUrl: 'app/plataforma/plataforma.component.html',
   directives: [ROUTER_DIRECTIVES]
 })
 @RouteConfig([
