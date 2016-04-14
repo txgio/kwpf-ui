@@ -14,6 +14,22 @@ gulp.task('clean', function() {
   return del('dist/**/*');
 });
 
+gulp.task('copy:ts', ['clean'], function() {
+  return gulp.src('app/**/*.ts',
+    {
+      base: './'
+    }
+  ).pipe(gulp.dest('dist'));
+});
+
+gulp.task('copy:ts:inc', function() {
+  return gulp.src('app/**/*.ts',
+    {
+      base: './'
+    }
+  ).pipe(gulp.dest('dist'));
+});
+
 gulp.task('compile', ['clean'], function() {
   return tsProject
     .src()
@@ -31,8 +47,12 @@ gulp.task('compile:inc', function() {
     .pipe(ts(tsProject))
     .js
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('dist/app'));
+    .pipe(gulp.dest('.'));
 });
+
+gulp.task('compile:with-sources', ['compile', 'copy:ts']);
+
+gulp.task('compile:inc:with-sources', ['compile:inc', 'copy:ts:inc']);
 
 gulp.task('copy:libs', ['clean'], function() {
   return gulp.src([
@@ -77,10 +97,10 @@ gulp.task('copy:assets:inc', function() {
 
 gulp.task('serve', ['build'], function() {
   browserSync({server: './dist'});
-  gulp.watch('app/**/*.ts', ['compile:inc', browserSync.reload]);
+  gulp.watch('app/**/*.ts', ['compile:inc:with-sources', browserSync.reload]);
   gulp.watch(assetsPatterns, ['copy:assets:inc', browserSync.reload]);
 });
 
-gulp.task('build', ['clean', 'compile', 'copy:libs', 'copy:assets', 'copy:template']);
+gulp.task('build', ['clean', 'compile:with-sources', 'copy:libs', 'copy:assets', 'copy:template']);
 
 gulp.task('default', ['build']);
