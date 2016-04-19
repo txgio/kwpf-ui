@@ -47,7 +47,7 @@ gulp.task('compile:inc', function() {
     .pipe(ts(tsProject))
     .js
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest('.'));
+    .pipe(gulp.dest('dist/app'));
 });
 
 gulp.task('compile:with-sources', ['compile', 'copy:ts']);

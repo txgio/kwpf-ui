@@ -4,10 +4,12 @@ import {DashboardComponent} from './dashboard.component';
 import {CadastroOrgaoComponent} from './cadastro-orgao.component';
 import {BodyLayoutService} from '../body-layout.service';
 import {SidebarComponent} from './sidebar.component';
+import {SidebarService} from './sidebar.service';
 
 @Component({
   templateUrl: 'app/plataforma/plataforma.component.html',
-  directives: [ROUTER_DIRECTIVES, SidebarComponent]
+  directives: [ROUTER_DIRECTIVES, SidebarComponent],
+  providers: [SidebarService]
 })
 @RouteConfig([
   {
@@ -24,12 +26,12 @@ import {SidebarComponent} from './sidebar.component';
 ])
 export class PlataformaComponent {
   
-  constructor(private _bodyLayoutService: BodyLayoutService) {
+  constructor(private _sidebarService: SidebarService) {
     
   }
   
   toggleSidebar() {
-    this._bodyLayoutService.toggleClass('page-sidebar-closed');
+    this._sidebarService.toggleSidebar();
   }
   
 }
