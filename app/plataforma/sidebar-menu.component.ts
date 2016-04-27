@@ -1,17 +1,22 @@
 import {Component, ElementRef, OnInit} from 'angular2/core';
 import {SidebarService} from './sidebar.service';
 import {SubmenuComponent} from './submenu.component';
+import {SubmenuService} from './submenu.service';
+import {MenuGroup} from './menu-group';
 
 declare var jQuery:any;
 
 @Component({
   selector: '[sidebar-menu]',
   templateUrl: 'app/plataforma/sidebar-menu.component.html',
-  directives: [SubmenuComponent]
+  directives: [SubmenuComponent],
+  providers: [SubmenuService]
 })
 export class SidebarMenuComponent implements OnInit {
 
-  constructor(private _sidebarService: SidebarService, private _elementRef: ElementRef) {
+  groups: MenuGroup[];
+
+  constructor(private _sidebarService: SidebarService, private _elementRef: ElementRef, private _submenuService: SubmenuService) {
 
   }
 
@@ -44,6 +49,10 @@ export class SidebarMenuComponent implements OnInit {
     });
 
     jqElement.attr("data-initialized", "1");
+
+    this._submenuService.getMenuItems().then(
+      groups => this.groups = groups
+    );
   }
 
 }
